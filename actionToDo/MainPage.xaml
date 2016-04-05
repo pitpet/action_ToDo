@@ -9,5 +9,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <TextBlock Name="TextBlock1" Text="a" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Name="Button1" Click="Button1_Click" Height="40" Width="200" Content="Push me!"></Button>
+        
     </Grid>
 </Page>
