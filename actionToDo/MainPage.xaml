@@ -11,6 +11,10 @@
 
         <TextBlock Name="TextBlock1" Text="a" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Name="Button1" Click="Button1_Click" Height="40" Width="200" Content="Push me!"></Button>
-        
+        <Button x:Name="showToastBtn" Content="Show" Click="showToastBtn_Click"></Button>
+
     </Grid>
+
+
 </Page>
+

@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
+//using NotificationsExtensions.Toasts;
+using System.Xml.Linq;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,6 +31,8 @@ namespace actionToDo
             this.InitializeComponent();
         }
 
+
+   
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             TextBlock1.Text = "changed";
@@ -47,7 +51,42 @@ namespace actionToDo
 
             //Send Toast
             ToastNotificationManager.CreateToastNotifier().Show(toast);
+            
+        }
+
+        public static Windows.Data.Xml.Dom.XmlDocument CreateToast()
+        {
+            var xDoc = new XDocument(
+                new XElement("toast",
+                    new XElement("visual",
+                        new XElement("binding", new XAttribute("template", "ToastGeneric"),
+                            new XElement("text", "C# Corner"),
+                            new XElement("text", "Did you got MVP award?")
+                            )
+                        ),// actions  
+                    new XElement("actions",
+                        new XElement("action", new XAttribute("activationType", "background"),
+                            new XAttribute("content", "Yes"), new XAttribute("arguments", "yes")),
+                        new XElement("action", new XAttribute("activationType", "background"),
+                            new XAttribute("content", "No"), new XAttribute("arguments", "no"))
+                        )
+                    )
+                );
+
+            var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
+            xmlDoc.LoadXml(xDoc.ToString());
+            return xmlDoc;
+        }
+        private void showToastBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var xmdock = CreateToast();
+            var toast = new ToastNotification(xmdock);
+            var notifi = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
+            notifi.Show(toast);
 
         }
     }
+
+
 }
+
