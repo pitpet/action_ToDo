@@ -5,12 +5,73 @@
     xmlns:local="using:actionToDo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:actionToDo.Models"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Aquamarine">
 
-        <TextBlock Name="TextBlock1" Text="a" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Name="Button1" Click="Button1_Click" Height="40" Width="200" Content="Push me!"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <TextBox Name="TdDoTextBox" Width="300"  Height="50" BorderThickness="2" Margin="10,10,10,10" TextWrapping="Wrap"/>
+            <Button Name="AddToDoButton" Width="200" Height="50" Background="Red" Content="Add" Click="AddToDoButton_Click"/>
+        </StackPanel>
+
+
+        <ListView ItemsSource="{x:Bind ToDoElements}" Grid.Row="1" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:ToDoElement">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="200" Text="{x:Bind Text}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+        </ListView>
+
+        <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   Name="ResultTextBlock"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" 
+                   Text="No Item selected"
+                   />
+
+        <TextBlock Grid.Row="2"
+                   Grid.Column="1"
+                   Name="ResultTextBlockActive"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" 
+                   Text="ResultTextBlockActive"
+                   />
         
+        <Button Name="ActiveButton"
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="100"
+                Background="blue"
+                Click="ActiveButton_Click"
+                />
+
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <TextBlock Name="TextBlock1" Text="a" HorizontalAlignment="Center" VerticalAlignment="Center" Width=" 300"/>
+            <Button Name="Button1" Click="Button1_Click" Height="40" Width="200" Content="Push me!"></Button>
+            
+        </StackPanel>
     </Grid>
 </Page>
