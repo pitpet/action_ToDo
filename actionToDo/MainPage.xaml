@@ -24,12 +24,18 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-            <TextBox Name="TdDoTextBox" Width="300"  Height="50" BorderThickness="2" Margin="10,10,10,10" TextWrapping="Wrap"/>
-            <Button Name="AddToDoButton" Width="200" Height="50" Background="Red" Content="Add" Click="AddToDoButton_Click"/>
+            <TextBox Name="ToDoTextBox" Width="300"  Height="50" BorderThickness="2" 
+                     Margin="10,10,10,10" TextWrapping="Wrap" Text="Example"/>
+            <Button Name="AddToDoButton" Width="200" Height="50" Background="Red" 
+                    Content="Add" Click="AddToDoButton_Click"/>
+            <Button Name="DeleteToDoButton" Width="200" Height="50" Background="Red" 
+                    Content="Add" Click="DeleteToDoButton_Click"/>
         </StackPanel>
 
 
-        <ListView ItemsSource="{x:Bind ToDoElements}" Grid.Row="1" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+        <ListView ItemsSource="{x:Bind ToDoElements}" Grid.Row="1" 
+                  IsItemClickEnabled="True" ItemClick="ListView_ItemClick" 
+                  Grid.Column="0">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:ToDoElement">
                     <StackPanel Orientation="Horizontal">
@@ -37,9 +43,20 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-
         </ListView>
+
+        <ListView ItemsSource="{x:Bind ToDoElementList}" Grid.Row="1" 
+                  IsItemClickEnabled="True" ItemClick="ListView_ItemClick" 
+                  Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:ToDoElement">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="200" Text="{x:Bind Text}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
 
         <TextBlock Grid.Row="2"
                    Grid.Column="0"

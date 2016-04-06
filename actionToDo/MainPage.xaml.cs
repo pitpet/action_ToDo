@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
 using actionToDo.Models;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,13 +26,16 @@ namespace actionToDo
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private List<ToDoElement> ToDoElements;
+        //private List<ToDoElement> ToDoElements;
+        private ObservableCollection<ToDoElement> ToDoElements;
+        private ObservableCollection<ToDoElement> ToDoElementList;
         public ToDoElement ActiveElement;
 
         public MainPage()
         {
             this.InitializeComponent();
             ToDoElements = ToDoElementManager.GetToDoList();
+            ToDoElementList = ToDoElementManager.GetToDoList();
             ActiveElement = (new ToDoElement { Text = "zero" });
         }
 
@@ -58,7 +62,7 @@ namespace actionToDo
 
         private void AddToDoButton_Click(object sender, RoutedEventArgs e)
         {
-            //TextBlock1.Text = ;
+            ToDoElementList = ToDoElementManager.AddElementtoList(ToDoElementList,ToDoTextBox.Text);
         }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -72,6 +76,11 @@ namespace actionToDo
         private void ActiveButton_Click(object sender, RoutedEventArgs e)
         {
             ResultTextBlockActive.Text = ActiveElement.Text;
+        }
+
+        private void DeleteToDoButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToDoElementList = ToDoElementManager.DeleteElementfromList(ToDoElementList,ActiveElement);
         }
     }
 }
