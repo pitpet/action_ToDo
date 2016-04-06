@@ -54,7 +54,7 @@ namespace actionToDo
             
         }
 
-        public static Windows.Data.Xml.Dom.XmlDocument CreateToast()
+        public static XmlDocument CreateToast()
         {
             var xDoc = new XDocument(
                 new XElement("toast",
@@ -73,7 +73,7 @@ namespace actionToDo
                     )
                 );
 
-            var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
+            var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xDoc.ToString());
             return xmlDoc;
         }
@@ -81,7 +81,7 @@ namespace actionToDo
         {
             var xmdock = CreateToast();
             var toast = new ToastNotification(xmdock);
-            var notifi = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
+            var notifi = ToastNotificationManager.CreateToastNotifier();
             notifi.Show(toast);
 
         }
